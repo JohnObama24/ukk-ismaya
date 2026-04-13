@@ -1,6 +1,6 @@
-@extends('layouts.admin')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="space-y-8 pb-10">
     <!-- Header -->
     <div class="flex flex-wrap items-start gap-3 justify-between">
@@ -13,7 +13,8 @@
                 <svg class="w-4 h-4 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
-                {{ now()->format('d M, Y') }}
+                <?php echo e(now()->format('d M, Y')); ?>
+
             </span>
         </div>
     </div>
@@ -31,7 +32,7 @@
                         </svg>
                     </div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Sales</p>
-                    <h3 class="text-2xl font-extrabold text-[#1A1C1E]">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</h3>
+                    <h3 class="text-2xl font-extrabold text-[#1A1C1E]">Rp <?php echo e(number_format($totalRevenue, 0, ',', '.')); ?></h3>
                 </div>
                 <div class="flex items-center gap-1 text-orange-500 font-bold bg-orange-50 px-2 py-1 rounded-lg text-[10px]">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +58,7 @@
                         </svg>
                     </div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Orders</p>
-                    <h3 class="text-2xl font-extrabold text-[#1A1C1E]">{{ number_format($totalOrders) }}</h3>
+                    <h3 class="text-2xl font-extrabold text-[#1A1C1E]"><?php echo e(number_format($totalOrders)); ?></h3>
                 </div>
                 <div class="flex items-center gap-1 text-orange-500 font-bold bg-orange-50 px-2 py-1 rounded-lg text-[10px]">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +84,7 @@
                         </svg>
                     </div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">New Customers</p>
-                    <h3 class="text-2xl font-extrabold text-[#1A1C1E]">{{ number_format($newCustomers) }}</h3>
+                    <h3 class="text-2xl font-extrabold text-[#1A1C1E]"><?php echo e(number_format($newCustomers)); ?></h3>
                 </div>
                 <div class="flex items-center gap-1 text-orange-500 font-bold bg-orange-50 px-2 py-1 rounded-lg text-[10px]">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,17 +110,17 @@
                         </svg>
                     </div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Top Selling</p>
-                    <h3 class="text-lg font-extrabold text-[#1A1C1E] truncate">{{ $topSellingProduct->name ?? 'No Sales' }}</h3>
+                    <h3 class="text-lg font-extrabold text-[#1A1C1E] truncate"><?php echo e($topSellingProduct->name ?? 'No Sales'); ?></h3>
                 </div>
-                @if($topSellingProduct && $topSellingProduct->image)
-                <img src="{{ asset('storage/' . $topSellingProduct->image) }}" alt="Top Product" class="w-12 h-12 rounded-xl object-cover border-2 border-white shadow-sm transition group-hover:scale-110">
-                @else
+                <?php if($topSellingProduct && $topSellingProduct->image): ?>
+                <img src="<?php echo e(asset('storage/' . $topSellingProduct->image)); ?>" alt="Top Product" class="w-12 h-12 rounded-xl object-cover border-2 border-white shadow-sm transition group-hover:scale-110">
+                <?php else: ?>
                 <div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center border-2 border-white shadow-sm">
                     <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -148,28 +149,28 @@
                     <h4 class="text-xl font-extrabold text-[#1A1C1E]">Low Stock Alerts</h4>
                     <p class="text-sm text-gray-400 font-medium italic">Immediate action required</p>
                 </div>
-                <span class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-xs font-bold">{{ $lowStockProducts->count() }}</span>
+                <span class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-xs font-bold"><?php echo e($lowStockProducts->count()); ?></span>
             </div>
             
             <div class="space-y-4 flex-grow overflow-auto">
-                @forelse($lowStockProducts as $product)
+                <?php $__empty_1 = true; $__currentLoopData = $lowStockProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <div class="flex items-center gap-4 p-4 rounded-2xl bg-[#F8F9FA] group hover:bg-white border border-transparent hover:border-gray-100 transition shadow-sm hover:shadow-md">
-                    @if($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" class="w-12 h-12 rounded-xl object-cover" alt="{{ $product->name }}">
-                    @else
+                    <?php if($product->image): ?>
+                    <img src="<?php echo e(asset('storage/' . $product->image)); ?>" class="w-12 h-12 rounded-xl object-cover" alt="<?php echo e($product->name); ?>">
+                    <?php else: ?>
                     <div class="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center">
                          <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                     </div>
-                    @endif
+                    <?php endif; ?>
                     <div class="flex-1">
-                        <h5 class="text-sm font-bold text-[#1A1C1E]">{{ $product->name }}</h5>
-                        <p class="text-xs text-red-500 font-medium">Only {{ $product->stock }} units left</p>
+                        <h5 class="text-sm font-bold text-[#1A1C1E]"><?php echo e($product->name); ?></h5>
+                        <p class="text-xs text-red-500 font-medium">Only <?php echo e($product->stock); ?> units left</p>
                     </div>
-                    <a href="{{ route('admin.products.index') }}" class="text-[10px] font-extrabold uppercase tracking-widest text-orange-600 hover:text-orange-700">Restock</a>
+                    <a href="<?php echo e(route('admin.products.index')); ?>" class="text-[10px] font-extrabold uppercase tracking-widest text-orange-600 hover:text-orange-700">Restock</a>
                 </div>
-                @empty
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                 <div class="flex flex-col items-center justify-center h-full text-center py-10">
                     <div class="bg-orange-50 p-4 rounded-full mb-4">
                         <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,10 +179,10 @@
                     </div>
                     <p class="text-sm font-bold text-gray-500">All inventory in good standing!</p>
                 </div>
-                @endforelse
+                <?php endif; ?>
             </div>
 
-            <a href="{{ route('admin.products.index') }}" class="mt-8 w-full py-4 px-6 bg-white border border-gray-100 rounded-2xl text-center text-sm font-extrabold text-[#1A1C1E] hover:bg-gray-50 transition shadow-sm">
+            <a href="<?php echo e(route('admin.products.index')); ?>" class="mt-8 w-full py-4 px-6 bg-white border border-gray-100 rounded-2xl text-center text-sm font-extrabold text-[#1A1C1E] hover:bg-gray-50 transition shadow-sm">
                 View Inventory
             </a>
         </div>
@@ -194,7 +195,7 @@
                 <h4 class="text-lg sm:text-xl font-extrabold text-[#1A1C1E]">Recent Activities</h4>
                 <p class="text-sm text-gray-400 font-medium mt-1">Real-time update of store transactions</p>
             </div>
-            <a href="{{ route('admin.orders') }}" class="text-sm font-extrabold text-orange-600 hover:text-orange-700 flex items-center gap-1 group flex-shrink-0">
+            <a href="<?php echo e(route('admin.orders')); ?>" class="text-sm font-extrabold text-orange-600 hover:text-orange-700 flex items-center gap-1 group flex-shrink-0">
                 View All 
                 <svg class="w-4 h-4 transition group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -214,27 +215,28 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
-                    @foreach($recentOrders as $order)
+                    <?php $__currentLoopData = $recentOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr class="hover:bg-[#F8F9FA] transition group">
                         <td class="px-4 sm:px-8 py-4 sm:py-5">
                             <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 {{ $order->status == 'pending' ? 'bg-amber-50 text-amber-600' : 'bg-orange-50 text-orange-600' }}">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 <?php echo e($order->status == 'pending' ? 'bg-amber-50 text-amber-600' : 'bg-orange-50 text-orange-600'); ?>">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </div>
-                                <span class="font-bold text-[#1A1C1E] text-sm whitespace-nowrap">Order #{{ $order->order_number }}</span>
+                                <span class="font-bold text-[#1A1C1E] text-sm whitespace-nowrap">Order #<?php echo e($order->order_number); ?></span>
                             </div>
                         </td>
                         <td class="px-4 sm:px-8 py-4 sm:py-5">
-                            <span class="text-sm font-bold text-gray-500 whitespace-nowrap">{{ $order->user->name ?? 'Guest' }}</span>
+                            <span class="text-sm font-bold text-gray-500 whitespace-nowrap"><?php echo e($order->user->name ?? 'Guest'); ?></span>
                         </td>
                         <td class="px-4 sm:px-8 py-4 sm:py-5 text-right font-extrabold text-[#1A1C1E] whitespace-nowrap">
-                            Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                            Rp <?php echo e(number_format($order->total_price, 0, ',', '.')); ?>
+
                         </td>
                         <td class="px-4 sm:px-8 py-4 sm:py-5">
                             <div class="flex justify-center">
-                                @php
+                                <?php
                                     $statusClasses = [
                                         'pending' => 'bg-amber-50 text-amber-600',
                                         'processing' => 'bg-blue-50 text-blue-600',
@@ -242,17 +244,19 @@
                                         'delivered' => 'bg-orange-50 text-orange-600',
                                         'cancelled' => 'bg-red-50 text-red-600'
                                     ];
-                                @endphp
-                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap {{ $statusClasses[$order->status] ?? 'bg-gray-50 text-gray-500' }}">
-                                    {{ $order->status }}
+                                ?>
+                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap <?php echo e($statusClasses[$order->status] ?? 'bg-gray-50 text-gray-500'); ?>">
+                                    <?php echo e($order->status); ?>
+
                                 </span>
                             </div>
                         </td>
                         <td class="px-4 sm:px-8 py-4 sm:py-5 text-right font-bold text-gray-400 text-sm whitespace-nowrap">
-                            {{ $order->created_at->diffForHumans() }}
+                            <?php echo e($order->created_at->diffForHumans()); ?>
+
                         </td>
                     </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
         </div>
@@ -264,7 +268,7 @@
         var options = {
             series: [{
                 name: 'Revenue',
-                data: @json($salesData) 
+                data: <?php echo json_encode($salesData, 15, 512) ?> 
             }],
             chart: {
                 type: 'area',
@@ -293,7 +297,7 @@
                 width: 3,
             },
             xaxis: {
-                categories: @json($dates),
+                categories: <?php echo json_encode($dates, 15, 512) ?>,
                 axisBorder: { show: false },
                 axisTicks: { show: false },
                 labels: {
@@ -323,4 +327,6 @@
         chart.render();
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\Project-UKK\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>

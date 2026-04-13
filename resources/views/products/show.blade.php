@@ -53,7 +53,7 @@
                     </div>
 
                     @if(!auth()->check() || auth()->user()->role !== 'admin')
-                    <div class="flex flex-row gap-4 mt-8">
+                    <div class="flex flex-col sm:flex-row gap-4 mt-8">
                         <form action="{{ route('cart.add', $product->id) }}" method="GET" id="addToCartForm" class="flex-1">
                             @csrf
                             <input type="hidden" name="quantity" id="cart_quantity" value="1">
@@ -83,11 +83,11 @@
                             </svg>
                             Anda masuk sebagai Admin. Fitur belanja dinonaktifkan untuk fokus ke pengelolaan toko.
                         </p>
-                        <div class="mt-4 flex space-x-3">
-                            <a href="{{ route('admin.products.edit', $product->id) }}" class="inline-flex items-center px-4 py-2 bg-orange-600 border border-transparent rounded-lg font-bold text-white hover:bg-orange-700 transition shadow-sm text-sm">
+                        <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                            <a href="{{ route('admin.products.edit', $product->id) }}" class="inline-flex justify-center items-center px-4 py-2 bg-orange-600 border border-transparent rounded-lg font-bold text-white hover:bg-orange-700 transition shadow-sm text-sm">
                                 Ubah Produk Ini
                             </a>
-                            <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg font-bold text-gray-700 bg-white hover:bg-gray-50 transition shadow-sm text-sm">
+                            <a href="{{ route('admin.dashboard') }}" class="inline-flex justify-center items-center px-4 py-2 border border-gray-300 rounded-lg font-bold text-gray-700 bg-white hover:bg-gray-50 transition shadow-sm text-sm">
                                 Kembali ke Dashboard
                             </a>
                         </div>

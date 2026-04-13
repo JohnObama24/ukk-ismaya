@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'KhilafStore') }}</title>
+    <title><?php echo e(config('app.name', 'KhilafStore')); ?></title>
     <!-- Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
     <div class="min-h-screen flex flex-col">
-        @if(!Route::is('login') && !Route::is('register'))
+        <?php if(!Route::is('login') && !Route::is('register')): ?>
         <!-- Navigation -->
         <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 py-2">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        @if(auth()->check() && auth()->user()->role === 'admin')
+                        <?php if(auth()->check() && auth()->user()->role === 'admin'): ?>
                         <!-- Static Logo for Admins -->
                         <div class="flex items-center gap-2 cursor-default">
                             <div class="bg-orange-600 p-1.5 rounded-lg shadow-sm font-bold text-white text-xs">
@@ -30,57 +30,57 @@
                             </div>
                             <span class="text-xl font-bold text-gray-900 tracking-tight">KhilafStore</span>
                         </div>
-                        @else
+                        <?php else: ?>
                         <!-- Clickable Logo for Users/Guests -->
-                        <a href="{{ route('home') }}" class="flex items-center gap-2">
+                        <a href="<?php echo e(route('home')); ?>" class="flex items-center gap-2">
                             <div class="bg-orange-600 p-1.5 rounded-lg shadow-sm font-bold text-white text-xs">
                                 SK
                             </div>
                             <span class="text-xl font-bold text-gray-900 tracking-tight">KhilafStore</span>
                         </a>
-                        @endif
+                        <?php endif; ?>
                     </div>
 
                     <!-- Profile Section -->
                     <div class="flex items-center gap-3">
-                        @if(auth()->check() && auth()->user()->role === 'admin')
+                        <?php if(auth()->check() && auth()->user()->role === 'admin'): ?>
                         <!-- Admin Profile Synchronization -->
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 pl-4 border-l border-gray-100 group">
+                        <a href="<?php echo e(route('admin.dashboard')); ?>" class="flex items-center gap-3 pl-4 border-l border-gray-100 group">
                             <div class="text-right hidden sm:block">
-                                <p class="text-xs font-bold text-[#1A1C1E] group-hover:text-orange-600 transition">{{ auth()->user()->name }}</p>
+                                <p class="text-xs font-bold text-[#1A1C1E] group-hover:text-orange-600 transition"><?php echo e(auth()->user()->name); ?></p>
                                 <p class="text-[9px] text-gray-400 font-semibold uppercase tracking-wider">Admin Manager</p>
                             </div>
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=f97316&color=fff" alt="Profile" class="w-9 h-9 rounded-full border-2 border-orange-50 group-hover:border-orange-500 transition flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode(auth()->user()->name)); ?>&background=f97316&color=fff" alt="Profile" class="w-9 h-9 rounded-full border-2 border-orange-50 group-hover:border-orange-500 transition flex-shrink-0">
                         </a>
-                        @else
+                        <?php else: ?>
                         <!-- Regular User Profile Icon -->
-                        <a href="{{ route('profile.index') }}" 
-                           class="p-2 {{ request()->routeIs('profile*') ? 'text-orange-600 bg-orange-50' : 'text-gray-500 hover:text-orange-600 hover:bg-gray-100' }} rounded-full transition" 
+                        <a href="<?php echo e(route('profile.index')); ?>" 
+                           class="p-2 <?php echo e(request()->routeIs('profile*') ? 'text-orange-600 bg-orange-50' : 'text-gray-500 hover:text-orange-600 hover:bg-gray-100'); ?> rounded-full transition" 
                            title="My Profile">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
                         </a>
-                        @endif
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </nav>
-        @endif
+        <?php endif; ?>
 
         <!-- Page Content -->
         <main class="flex-grow">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </main>
 
-        @if(!Route::is('login') && !Route::is('register'))
+        <?php if(!Route::is('login') && !Route::is('register')): ?>
         <!-- Footer -->
         <footer class="bg-white border-t border-gray-100 mt-20 pb-10">
             <div class="max-w-7xl mx-auto pt-16 px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
                     <!-- Brand Section -->
                     <div class="col-span-2">
-                        <a href="{{ route('home') }}" class="flex items-center gap-2 mb-6">
+                        <a href="<?php echo e(route('home')); ?>" class="flex items-center gap-2 mb-6">
                             <div class="bg-orange-600 p-1.5 rounded-lg font-bold text-white text-xs">
                                 SK
                             </div>
@@ -149,7 +149,8 @@
                 </div>
             </div>
         </footer>
-        @endif
+        <?php endif; ?>
     </div>
 </body>
 </html>
+<?php /**PATH C:\laragon\www\Project-UKK\resources\views/layouts/app.blade.php ENDPATH**/ ?>
