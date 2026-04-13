@@ -57,6 +57,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         'index' => 'admin.products.index',
         'create' => 'admin.products.create',
         'store' => 'admin.products.store',
+        'show' => 'admin.products.show',
         'edit' => 'admin.products.edit',
         'update' => 'admin.products.update',
         'destroy' => 'admin.products.destroy',
